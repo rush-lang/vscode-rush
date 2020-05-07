@@ -1,0 +1,25 @@
+{
+    "name": "vscode-rush",
+    "displayName": "Rush",
+    "description": "Rush for Visual Studio Code",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.44.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "rush",
+            "aliases": ["Rush", "rush"],
+            "extensions": [".rush",".rs"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "rush",
+            "scopeName": "source.rush",
+            "path": "./syntaxes/rush.tmLanguage.json"
+        }]
+    }
+}
