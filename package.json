@@ -20,6 +20,10 @@
             "language": "rush",
             "scopeName": "source.rush",
             "path": "./syntaxes/rush.tmLanguage.json"
+        }],
+        "snippets": [{
+            "language": "rush",
+            "path": "./snippets.json"
         }]
     }
 }
