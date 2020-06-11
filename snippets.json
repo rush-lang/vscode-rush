@@ -1,0 +1,300 @@
+{
+	"Import declaration": {
+		"description": "Declare an import.",
+		"prefix": "imp",
+		"body": [ "import $0" ]
+	},
+
+	"Export declaration": {
+		"description": "Declare an export.",
+		"prefix": "exp",
+		"body": [ "export $0" ]
+	},
+
+	"Variable declaration": {
+		"description": "Declare one or more variables.",
+		"prefix": "var",
+		"body": [
+			"var ${1:name}${2:: ${3:type}}${4: = $0}"
+		]
+	},
+
+	"Constant declaration": {
+		"description": "Declare one or more constants.",
+		"prefix": "let",
+		"body": [
+			"let ${1:name}${2:: ${3:type}}${4: = $0}"
+		]
+	},
+
+	"Function declaration": {
+		"description": "Declare function with a statement body.",
+		"prefix": "func",
+		"body": [
+			"func ${1:name}(${2:${3:params}: ${4:type}}):",
+			"\t$0"
+		]
+	},
+
+	"Explicit return type function declaration": {
+		"description": "Declare function with a statement body and return type.",
+		"prefix": "funcr",
+		"body": [
+			"func ${1:name}(${2:${3:params}: ${4:type}}) -> ${5:type}:",
+			"\t$0"
+		]
+	},
+
+	"Inline function declaration": {
+		"description": "Declare function with a expression body.",
+		"prefix": "ifunc",
+		"body": "func ${1:name}(${2:${3:params}: ${4:type}}) => $0"
+	},
+
+	"Inline explicit return type function declaration": {
+		"description": "Declare function with a expression body and return type.",
+		"prefix": "ifuncr",
+		"body": "func ${1:name}(${2:${3:params}: ${4:type}}) -> ${5:type} => $0"
+	},
+
+	"Struct declaration": {
+		"description": "Class declaration.",
+		"prefix": "struct",
+		"body": [
+			"struct ${1:name}:",
+			"public:",
+			"\tfunc ${1:name}(${2:${3:params}: ${4:type}}):",
+			"\t\t$0"
+		]
+	},
+
+	"Class declaration": {
+		"description": "Class declaration.",
+		"prefix": "class",
+		"body": [
+			"class ${1:name}:",
+			"public:",
+			"\tfunc ${1:name}(${2:${3:params}: ${4:type}}):",
+			"\t\t$0"
+		]
+	},
+
+	"Property declaration": {
+		"description": "Property declaration.",
+		"prefix": "prop",
+		"body": [
+			"get ${1:name}:",
+			"\t$2",
+			"set ${1:name}:",
+			"\t$0",
+		]
+	},
+
+	"Explicit return type property declaration": {
+		"description": "Explicit return type Property declaration.",
+		"prefix": "propr",
+		"body": [
+			"get ${1:name} -> ${2:type}:",
+			"\t$3",
+			"set ${1:name} -> ${2:type}:",
+			"\t$0",
+		]
+	},
+
+	"Inline property declaration": {
+		"description": "Property declaration.",
+		"prefix": "iprop",
+		"body": [
+			"get ${1:name} => $2",
+			"set ${1:name} => $2${0: = value}"
+		]
+	},
+
+	"Property getter declaration": {
+		"description": "Property getter declaration.",
+		"prefix": "get",
+		"body": [
+			"get ${1:name}:",
+			"\t$0"
+		]
+	},
+
+	"Property setter declaration": {
+		"description": "Property setter declaration.",
+		"prefix": "set",
+		"body": [
+			"set ${1:name}:",
+			"\t$0"
+		]
+	},
+
+	"Explicit return type property getter declaration": {
+		"description": "Explicit return type property getter declaration.",
+		"prefix": "getr",
+		"body": [
+			"get ${1:name} -> ${2:type}:",
+			"\t$0"
+		]
+	},
+
+	"Explicit return type property setter declaration": {
+		"description": "Explicit return type property setter declaration.",
+		"prefix": "setr",
+		"body": [
+			"set ${1:name} -> ${2:type}:",
+			"\t$0"
+		]
+	},
+
+	"Inline property getter declaration": {
+		"description": "Inline property getter declaration.",
+		"prefix": "iget",
+		"body": "get ${1:name} => $0"
+	},
+
+	"Inline property setter declaration": {
+		"description": "Inline property setter declaration.",
+		"prefix": "iset",
+		"body": "set ${1:name} => $0"
+	},
+
+	"Explicit return type inline property getter declaration": {
+		"description": "Explicit return type inline property getter declaration.",
+		"prefix": "igetr",
+		"body": "get ${1:name} -> ${2:type} => $0"
+	},
+
+	"Explicit return type inline property setter declaration": {
+		"description": "Explicit return type inline property setter declaration.",
+		"prefix": "isetr",
+		"body": "set ${1:name} -> ${2:type} => $0"
+	},
+
+	"Explict return type inline property declaration": {
+		"description": "Explicit return type inline property declaration.",
+		"prefix": "ipropr",
+		"body": [
+			"get ${1:name} -> ${2:type} => $3",
+			"set ${1:name} -> ${2:type} => $3${0: = value}"
+		]
+	},
+
+	"Public section": {
+		"description": "Public section.",
+		"prefix": "public",
+		"body": [
+			"public:",
+			"\t$0"
+		]
+	},
+
+	"Private section": {
+		"description": "Private section.",
+		"prefix": "private",
+		"body": [
+			"private:",
+			"\t$0"
+		]
+	},
+
+	"Protected section": {
+		"description": "Protected section.",
+		"prefix": "protected",
+		"body": [
+			"protected:",
+			"\t$0"
+		]
+	},
+
+	"If statement": {
+		"description": "If statement.",
+		"prefix": "if",
+		"body": [
+			"if ${1:condition}:",
+			"\t$0"
+		]
+	},
+
+	"If else statement": {
+		"description": "If else statement.",
+		"prefix": "ifel",
+		"body": [
+			"if ${1:condition}:",
+			"\t$2",
+			"else:",
+			"\t$0"
+		]
+	},
+
+	"Else statement": {
+		"description": "Else statement.",
+		"prefix": "else",
+		"body": [
+			"else:",
+			"\t$0"
+		]
+	},
+
+	"Else if statement": {
+		"description": "Else if statement.",
+		"prefix": "elif",
+		"body": [
+			"else if ${1:condition}:",
+			"\t$0"
+		]
+	},
+
+	"Else while statement": {
+		"description": "Else while statement.",
+		"prefix": "elwhile",
+		"body": [
+			"else while ${1:condition}:",
+			"\t$0"
+		]
+	},
+
+	"Else for statement": {
+		"description": "Else for statement.",
+		"prefix": "elfor",
+		"body": [
+			"else for ${1:elem} in ${2:range}:",
+			"\t$0"
+		]
+	},
+
+	"While statement": {
+		"description": "While statement.",
+		"prefix": "while",
+		"body": [
+			"while ${1:condition}:",
+			"\t$0"
+		]
+	},
+
+	"For statement": {
+		"description": "For statement.",
+		"prefix": "for",
+		"body": [
+			"for ${1:elem} in ${2:range}:",
+			"\t$0"
+		]
+	},
+
+	"Integral range for statement": {
+		"description": "Integral range for statement.",
+		"prefix": "ifor",
+		"body": [
+			"for ${1:i} in ${2:start}...${3:end}:",
+			"\t$0"
+		]
+	},
+
+	"New expression": {
+		"description": "New declaration.",
+		"prefix": "new",
+		"body": [
+			"new ${1:type}($2)",
+			"$0"
+		]
+	}
+}
