@@ -106,7 +106,7 @@
 		"prefix": "iprop",
 		"body": [
 			"get ${1:name} => $2",
-			"set ${1:name} => $2${0: = value}"
+			"set ${1:name} => $2${3: = value}$0"
 		]
 	},
 
@@ -175,7 +175,7 @@
 		"prefix": "ipropr",
 		"body": [
 			"get ${1:name} -> ${2:type} => $3",
-			"set ${1:name} -> ${2:type} => $3${0: = value}"
+			"set ${1:name} -> ${2:type} => $3${4: = value}$0"
 		]
 	},
 
@@ -280,6 +280,28 @@
 		]
 	},
 
+	"Try catch statement": {
+		"description": "Try catch statement.",
+		"prefix": "try",
+		"body": [
+			"try:",
+			"\t$1",
+			"catch ${2:error}:",
+			"\t$0"
+		]
+	},
+
+	"Try finally statement": {
+		"description": "Try finally statement.",
+		"prefix": "tryf",
+		"body": [
+			"try:",
+			"\t$1",
+			"finally:",
+			"\t$0"
+		]
+	},
+
 	"Integral range for statement": {
 		"description": "Integral range for statement.",
 		"prefix": "ifor",
@@ -292,9 +314,6 @@
 	"New expression": {
 		"description": "New declaration.",
 		"prefix": "new",
-		"body": [
-			"new ${1:type}($2)",
-			"$0"
-		]
+		"body": "new ${1:type}($2)$0"
 	}
 }
