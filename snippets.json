@@ -31,7 +31,7 @@
 		"description": "Declare function with a statement body.",
 		"prefix": "func",
 		"body": [
-			"func ${1:name}(${2:${3:params}: ${4:type}}):",
+			"func ${1:name}(${2:${3:params}: ${4:type}})",
 			"\t$0"
 		]
 	},
@@ -40,7 +40,7 @@
 		"description": "Declare function with a statement body and return type.",
 		"prefix": "funcr",
 		"body": [
-			"func ${1:name}(${2:${3:params}: ${4:type}}) -> ${5:type}:",
+			"func ${1:name}(${2:${3:params}: ${4:type}}) -> ${5:type}",
 			"\t$0"
 		]
 	},
@@ -58,12 +58,12 @@
 	},
 
 	"Struct declaration": {
-		"description": "Class declaration.",
+		"description": "Struct declaration.",
 		"prefix": "struct",
 		"body": [
-			"struct ${1:name}:",
-			"public:",
-			"\tfunc ${1:name}(${2:${3:params}: ${4:type}}):",
+			"struct ${1:name}",
+			"public",
+			"\tfunc new (${2:${3:params}: ${4:type}})",
 			"\t\t$0"
 		]
 	},
@@ -72,9 +72,9 @@
 		"description": "Class declaration.",
 		"prefix": "class",
 		"body": [
-			"class ${1:name}:",
-			"public:",
-			"\tfunc ${1:name}(${2:${3:params}: ${4:type}}):",
+			"class ${1:name}",
+			"public",
+			"\tfunc new (${2:${3:params}: ${4:type}})",
 			"\t\t$0"
 		]
 	},
@@ -83,10 +83,10 @@
 		"description": "Property declaration.",
 		"prefix": "prop",
 		"body": [
-			"get ${1:name}:",
+			"get ${1:name}",
 			"\t$2",
-			"set ${1:name}:",
-			"\t$0",
+			"set ${1:name}",
+			"\t$0"
 		]
 	},
 
@@ -94,10 +94,10 @@
 		"description": "Explicit return type Property declaration.",
 		"prefix": "propr",
 		"body": [
-			"get ${1:name} -> ${2:type}:",
+			"get ${1:name}: ${2:type}:",
 			"\t$3",
-			"set ${1:name} -> ${2:type}:",
-			"\t$0",
+			"set ${1:name}: ${2:type}:",
+			"\t$0"
 		]
 	},
 
@@ -114,7 +114,7 @@
 		"description": "Property getter declaration.",
 		"prefix": "get",
 		"body": [
-			"get ${1:name}:",
+			"get ${1:name}",
 			"\t$0"
 		]
 	},
@@ -123,7 +123,7 @@
 		"description": "Property setter declaration.",
 		"prefix": "set",
 		"body": [
-			"set ${1:name}:",
+			"set ${1:name}",
 			"\t$0"
 		]
 	},
@@ -132,7 +132,7 @@
 		"description": "Explicit return type property getter declaration.",
 		"prefix": "getr",
 		"body": [
-			"get ${1:name} -> ${2:type}:",
+			"get ${1:name}: ${2:type}",
 			"\t$0"
 		]
 	},
@@ -141,7 +141,7 @@
 		"description": "Explicit return type property setter declaration.",
 		"prefix": "setr",
 		"body": [
-			"set ${1:name} -> ${2:type}:",
+			"set ${1:name}: ${2:type}",
 			"\t$0"
 		]
 	},
@@ -161,21 +161,21 @@
 	"Explicit return type inline property getter declaration": {
 		"description": "Explicit return type inline property getter declaration.",
 		"prefix": "igetr",
-		"body": "get ${1:name} -> ${2:type} => $0"
+		"body": "get ${1:name}: ${2:type} => $0"
 	},
 
 	"Explicit return type inline property setter declaration": {
 		"description": "Explicit return type inline property setter declaration.",
 		"prefix": "isetr",
-		"body": "set ${1:name} -> ${2:type} => $0"
+		"body": "set ${1:name}: ${2:type} => $0"
 	},
 
 	"Explict return type inline property declaration": {
 		"description": "Explicit return type inline property declaration.",
 		"prefix": "ipropr",
 		"body": [
-			"get ${1:name} -> ${2:type} => $3",
-			"set ${1:name} -> ${2:type} => $3${4: = value}$0"
+			"get ${1:name}: ${2:type} => $3",
+			"set ${1:name}: ${2:type} => $3${4: = value}$0"
 		]
 	},
 
@@ -183,7 +183,7 @@
 		"description": "Public section.",
 		"prefix": "public",
 		"body": [
-			"public:",
+			"public",
 			"\t$0"
 		]
 	},
@@ -192,7 +192,7 @@
 		"description": "Private section.",
 		"prefix": "private",
 		"body": [
-			"private:",
+			"private",
 			"\t$0"
 		]
 	},
@@ -201,7 +201,7 @@
 		"description": "Protected section.",
 		"prefix": "protected",
 		"body": [
-			"protected:",
+			"protected",
 			"\t$0"
 		]
 	},
@@ -210,7 +210,7 @@
 		"description": "If statement.",
 		"prefix": "if",
 		"body": [
-			"if ${1:condition}:",
+			"if ${1:condition}",
 			"\t$0"
 		]
 	},
@@ -219,9 +219,9 @@
 		"description": "If else statement.",
 		"prefix": "ifel",
 		"body": [
-			"if ${1:condition}:",
+			"if ${1:condition}",
 			"\t$2",
-			"else:",
+			"else",
 			"\t$0"
 		]
 	},
@@ -230,7 +230,7 @@
 		"description": "Else statement.",
 		"prefix": "else",
 		"body": [
-			"else:",
+			"else",
 			"\t$0"
 		]
 	},
@@ -239,7 +239,7 @@
 		"description": "Else if statement.",
 		"prefix": "elif",
 		"body": [
-			"else if ${1:condition}:",
+			"else if ${1:condition}",
 			"\t$0"
 		]
 	},
@@ -248,7 +248,7 @@
 		"description": "Else while statement.",
 		"prefix": "elwhile",
 		"body": [
-			"else while ${1:condition}:",
+			"else while ${1:condition}",
 			"\t$0"
 		]
 	},
@@ -257,7 +257,7 @@
 		"description": "Else for statement.",
 		"prefix": "elfor",
 		"body": [
-			"else for ${1:elem} in ${2:range}:",
+			"else for ${1:elem} in ${2:range}",
 			"\t$0"
 		]
 	},
@@ -266,7 +266,7 @@
 		"description": "While statement.",
 		"prefix": "while",
 		"body": [
-			"while ${1:condition}:",
+			"while ${1:condition}",
 			"\t$0"
 		]
 	},
@@ -275,7 +275,7 @@
 		"description": "For statement.",
 		"prefix": "for",
 		"body": [
-			"for ${1:elem} in ${2:range}:",
+			"for ${1:elem} in ${2:range}",
 			"\t$0"
 		]
 	},
@@ -284,9 +284,9 @@
 		"description": "Try catch statement.",
 		"prefix": "try",
 		"body": [
-			"try:",
+			"try",
 			"\t$1",
-			"catch ${2:error}:",
+			"catch ${2:error}",
 			"\t$0"
 		]
 	},
@@ -295,24 +295,33 @@
 		"description": "Try finally statement.",
 		"prefix": "tryf",
 		"body": [
-			"try:",
+			"try",
 			"\t$1",
-			"finally:",
+			"finally",
 			"\t$0"
 		]
 	},
 
-	"Integral range for statement": {
-		"description": "Integral range for statement.",
+	"Inclusive range for statement": {
+		"description": "Inclusive range for statement.",
 		"prefix": "ifor",
 		"body": [
-			"for ${1:i} in ${2:start}...${3:end}:",
+			"for ${1:i} in ${2:start}...${3:end}",
+			"\t$0"
+		]
+	},
+
+	"Exlusive range for statement": {
+		"description": "Exclusive range for statement.",
+		"prefix": "efor",
+		"body": [
+			"for ${1:i} in ${2:start}..^${3:end}",
 			"\t$0"
 		]
 	},
 
 	"New expression": {
-		"description": "New declaration.",
+		"description": "New expression.",
 		"prefix": "new",
 		"body": "new ${1:type}($2)$0"
 	}

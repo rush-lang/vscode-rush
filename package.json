@@ -1,25 +1,51 @@
 {
     "name": "vscode-rush",
+    "publisher": "rush-lang",
     "displayName": "Rush",
     "description": "Rush for Visual Studio Code",
     "version": "0.0.1",
+    "license": "MIT",
+    "repository": {
+        "url": "https://github.com/rush-lang/vscode-rush.git"
+    },
+    "bugs": {
+        "url": "https://github.com/rush-lang/vscode-rush/issues"
+    },
     "engines": {
-        "vscode": "^1.44.0"
+        "vscode": "^1.56.0"
     },
     "categories": [
-        "Programming Languages"
+        "Programming Languages",
+        "Debuggers",
+        "Linters",
+        "Formatters",
+        "Other"
+    ],
+    "keywords": [
+        "rush",
+        "programming",
+        "language"
     ],
     "contributes": {
         "languages": [{
             "id": "rush",
             "aliases": ["Rush", "rush"],
-            "extensions": [".rush",".rs"],
+            "extensions": [".rush"],
             "configuration": "./language-configuration.json"
         }],
         "grammars": [{
             "language": "rush",
             "scopeName": "source.rush",
             "path": "./syntaxes/rush.tmLanguage.json"
+        }, {
+            "scopeName": "markdown.rush.codeblock",
+            "path": "./syntaxes/markdown.tmLanguage.json",
+            "injectTo": [
+                "text.html.markdown"
+            ],
+            "embeddedLanguages": {
+                "meta.embedded.block.rush": "rush"
+            }
         }],
         "snippets": [{
             "language": "rush",
