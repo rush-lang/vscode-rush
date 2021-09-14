@@ -79,6 +79,16 @@
 		]
 	},
 
+	"Extension declaration": {
+		"description": "Extension declaration",
+		"prefix": "exten",
+		"body": [
+			"class extends ${1:name}",
+			"public",
+			"\t$0"
+		]
+	},
+
 	"Property declaration": {
 		"description": "Property declaration.",
 		"prefix": "prop",

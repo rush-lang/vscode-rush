@@ -49,7 +49,7 @@
 				},
 				{
 					"name": "keyword.other.$1.rush",
-					"match": "(?<![_[:alnum:]])(with|in|as|is|typeof|sizeof)(?![_[:alnum:]])"
+					"match": "(?<![_[:alnum:]])(with|in|as|is|typeof|sizeof|default)(?![_[:alnum:]])"
 				}
 			]
 		},
@@ -149,6 +149,20 @@
 				"1": { "name": "punctuation.definition.template-expression.end.rush" }
 			},
 			"patterns": [
+				{
+					"name": "meta.string.template.expression.format.rush",
+					"begin": "\\s*(:)\\s*",
+					"end": "(?=})",
+					"beginCaptures": {
+						"1": { "name": "punctuation.definition.template-expression.format.rush" }
+					},
+					"patterns": [
+						{
+							"name": "string.quoted.double.rush",
+							"match": "[^}]+"
+						}
+					]
+				},
 				{ "include": "#expression" }
 			]
 		},
@@ -204,6 +218,14 @@
 			"beginCaptures": { "1": { "name": "punctuation.separator.colon.rush" } },
 			"patterns": [ { "include": "#type" } ]
 		},
+		"return-type-annotation-pattern": {
+			"name": "meta.pattern.type-annotation.rush",
+			"begin": "\\s*(->)\\s*",
+			"end": "(?=.|$)",
+			"applyEndPatternLast": 1,
+			"beginCaptures": { "1": { "name": "punctuation.separator.arrow.thin.rush" } },
+			"patterns": [ { "include": "#type" } ]
+		},
 		"binding-pattern": {
 			"name": "meta.pattern.binding.rush",
 			"begin": "\\s*(=(?!>))\\s*",
@@ -214,6 +236,19 @@
 			},
 			"patterns": [
 				{ "include": "#expression" }
+			]
+		},
+		"lambda-pattern": {
+			"name": "meta.pattern.lambda.rush",
+			"begin": "([_[:alpha:]][_[:alnum:]]*)\\s*(?=\\()",
+			"end": "(?=.|$)",
+			"applyEndPatternLast": 1,
+			"beginCaptures": {
+				"1": { "patterns": [ { "include": "#identifier" } ] }
+			},
+			"patterns": [
+				{ "include": "#lambda-expression" },
+				{ "include": "#pattern" }
 			]
 		},
 		"type": {
@@ -257,7 +292,19 @@
 		},
 		"type-extension": {
 			"name": "punctuation.definition.type-extension.rush",
-			"match": "@\\s*"
+			"begin": "(?x) (?:(?<![_[:alnum:]]) (extends) (?![_[:alnum:]])|@) \\s*",
+			"end": "(?=.|$)",
+			"beginCaptures": {
+				"1": { "name": "storage.type.$1.rush" }
+			},
+			"patterns": [
+				{
+					"begin": "(?<=(?:extends|@)\\s*)",
+					"end": "(?=.|$)",
+					"applyEndPatternLast": 1,
+					"patterns": [ { "include": "#type" } ]
+				}
+			]
 		},
 		"optional-type": {
 			"name": "punctuation.definition.optional-type.rush",
@@ -269,14 +316,14 @@
 		},
 		"type-storage-modifier": {
 			"name": "meta.storage.modifier.$1.rush",
-			"begin": "(?x) (?<![_[:alnum:]]) (ref|const) (?![_[:alnum:]]) \\s*",
+			"begin": "(?x) (?<![_[:alnum:]]) (ref|unsafe|const|mutable) (?![_[:alnum:]]) \\s*",
 			"end": "(?=.|$)",
 			"beginCaptures": {
 				"1": { "name": "storage.type.$1.rush" }
 			},
 			"patterns": [
 				{
-					"begin": "(?<=(ref|const)\\s*)",
+					"begin": "(?<=(ref|unsafe|const|mutable)\\s*)",
 					"end": "(?=.|$)",
 					"applyEndPatternLast": 1,
 					"patterns": [ { "include": "#type" } ]
@@ -296,7 +343,13 @@
 					"end": "(?=.|$)",
 					"applyEndPatternLast": 1,
 					"beginCaptures": { "1": { "name": "punctuation.separator.colon.rush" } },
-					"patterns": [ { "include": "#expression" } ]
+					"patterns": [
+						{
+							"match": "\\s*(,)\\s*",
+							"captures": { "1": { "name": "keyword.operator.comma.rush" } }
+						},
+						{ "include": "#expression" }
+					]
 				},
 				{
 					"name": "punctuation.separator.comma.rush",
@@ -355,6 +408,7 @@
 				{ "include": "#builtin-type" },
 				{ "include": "#array-literal-expression" },
 				{ "include": "#await-expression" },
+				{ "include": "#default-expression" },
 				{ "include": "#typeof-expression" },
 				{ "include": "#nameof-expression" },
 				{ "include": "#as-expression" },
@@ -373,6 +427,26 @@
 			"captures": {
 				"1": { "name": "keyword.operator.rush" }
 			}
+		},
+		"default-expression": {
+			"name": "meta.expression.$1.rush",
+			"begin": "(?x) (?<![_[:alnum:]]) (\\bdefault\\b) (?![_[:alnum:]]) \\s*",
+			"end": "(?=.|$)",
+			"applyEndPatternLast": 1,
+			"beginCaptures": {
+				"1": { "name": "keyword.other.$1.rush" }
+			},
+			"patterns": [
+				{
+					"name": "meta.expression.default.type.rush",
+					"begin": "(?x) (?<=default\\s*) (\\() \\s*",
+					"end": "(?=.|$)|\\s*(\\))",
+					"beginCaptures": { "1": { "name": "punctuation.section.parameters.start.bracket.round.rush" } },
+					"endCaptures": { "1": { "name": "punctuation.section.parameters.end.bracket.round.rush" } },
+					"applyEndPatternLast": 1,
+					"patterns": [ { "include": "#type" } ]
+				}
+			]
 		},
 		"lambda-expression": {
 			"patterns": [
@@ -403,14 +477,15 @@
 		},
 		"inline-lambda-expression": {
 			"name": "meta.lambda.expression.rush",
-			"begin": "([\\(\\[\\{].*[\\]\\)\\}]|[_[:alnum:]]*)\\s*(?:(->)\\s(.*))?\\s*(=>)\\s*",
+			"begin": "(?<![_[:alnum:]])(async)(?![_[:alnum:]])\\s*([\\(\\[\\{].*[\\]\\)\\}]|[_[:alnum:]]*)\\s*(?:(->)\\s(.*))?\\s*(=>)\\s*",
 			"end": "(?=.|$)",
 			"applyEndPatternLast": 1,
 			"beginCaptures": {
-				"1": { "patterns": [ { "include": "#lambda-expression-parameters" } ] },
-				"2": { "name": "punctuation.separator.arrow.thin.rush" },
-				"3": { "patterns": [ { "include": "#type" } ] },
-				"4": { "name": "punctuation.separator.arrow.thick.rush" }
+				"1": { "name": "keyword" },
+				"2": { "patterns": [ { "include": "#lambda-expression-parameters" } ] },
+				"3": { "name": "punctuation.separator.arrow.thin.rush" },
+				"4": { "patterns": [ { "include": "#type" } ] },
+				"5": { "name": "punctuation.separator.arrow.thick.rush" }
 			},
 			"patterns": [
 				{
@@ -424,13 +499,14 @@
 		},
 		"multiline-lambda-expression": {
 			"name": "meta.lambda.expression.rush",
-			"begin": "(?<=^(\\s*).*)([\\(\\[\\{].*[\\]\\)\\}]|[_[:alnum:]]*)\\s*(?:(->)\\s(.*))?\\s*(=>)\\s*$",
+			"begin": "(?<=^(\\s*).*)(?<![_[:alnum:]])(async)(?![_[:alnum:]])\\s*([\\(\\[\\{].*[\\]\\)\\}]|[_[:alnum:]]*)\\s*(?:(->)\\s(.*))?\\s*(=>)\\s*$",
 			"end": "^(?!(?:\\1\\s+|\\s*$))",
 			"beginCaptures": {
-				"2": { "patterns": [ { "include": "#lambda-expression-parameters" } ] },
-				"3": { "name": "punctuation.separator.arrow.thin.rush" },
-				"4": { "patterns": [ { "include": "#type" } ] },
-				"5": { "name": "punctuation.separator.arrow.thick.rush" }
+				"2": { "name": "keyword" },
+				"3": { "patterns": [ { "include": "#lambda-expression-parameters" } ] },
+				"4": { "name": "punctuation.separator.arrow.thin.rush" },
+				"5": { "patterns": [ { "include": "#type" } ] },
+				"6": { "name": "punctuation.separator.arrow.thick.rush" }
 			},
 			"patterns": [
 				{
@@ -586,15 +662,16 @@
 		},
 		"new-expression": {
 			"name": "meta.expression.new.rush",
-			"begin": "(?<![_[:alnum:]])(new)(?![_[:alnum:]])\\s*",
+			"begin": "(?<![_[:alnum:]])(new)(?![_[:alnum:]])\\s*(?:(?<![_[:alnum:]])(const|mutable)(?![_[:alnum:]])\\s*)?",
 			"end": "(?=.|$)",
 			"applyEndPatternLast": 1,
 			"beginCaptures": {
-				"1": { "name": "keyword.operator.new.rush" }
+				"1": { "name": "keyword.operator.new.rush" },
+				"2": { "name": "storage.type.$2.rush" }
 			},
 			"patterns": [
 				{
-					"begin": "(?<=new\\s*)",
+					"begin": "(?<=(?:new|const|mutable)\\s*)",
 					"end": "(?=.|$)",
 					"applyEndPatternLast": 1,
 					"patterns": [
@@ -689,7 +766,13 @@
 					"begin": "(?x) (?<=(if|while)\\s*)",
 					"end": "(?=.|$)",
 					"applyEndPatternLast": 1,
-					"patterns": [ { "include": "#expression" } ]
+					"patterns": [
+						{ "include": "#expression" },
+						{
+							"match": "\\s*(and|or)\\s*",
+							"captures": { "1": { "name": "keyword.control.$1.rush" } }
+						}
+					]
 				}
 			]
 		},
@@ -771,6 +854,8 @@
 		"declaration": {
 			"patterns": [
 				{ "include": "#import-declaration" },
+				{ "include": "#namespace-declaration" },
+				{ "include": "#annotation-declaration" },
 				{ "include": "#storage-declaration" },
 				{ "include": "#function-declaration" },
 				{ "include": "#access-modifier" },
@@ -781,18 +866,56 @@
 				{ "include": "#storage-modifier" }
 			]
 		},
+		"annotation-declaration": {
+			"name": "meta.declaration.annotation.rush",
+			"begin": "@",
+			"end": "(?=.|$)",
+			"applyEndPatternLast": 1,
+			"beginCaptures": {
+				"1": { "name": "punctuation.definition.annotation.rush" }
+			},
+			"patterns": [
+				{
+					"name": "entity.name.type.rush",
+					"match": "([_[:alpha:]][_[:alnum:]]*)"
+				}
+			]
+		},
 		"import-declaration": {
 			"name": "meta.import.rush",
-			"match": "(?:\\s*)(?<!_?[[:alpha:]])(?:(\\bimport\\b))(?![_[:alnum:]])(?:\\s*([^;\"#]*))(;|$)?",
+			"begin": "(?x)^(?<![_[:alnum:]])(import)(?![_[:alnum:]])\\s*",
+			"end": "(?=.|$)",
+			"applyEndPatternLast": 1,
+			"beginCaptures": {
+				"1": { "name": "keyword.control.import.rush" }
+			},
+			"patterns": [
+				{
+					"match": "([_.{}[:alnum:]]+)\\s*(?<![_[:alnum:]])(from)(?![_[:alnum:]])\\s*([_.[:alnum:]]+)?",
+					"captures": {
+						"1": { "name": "variable.name.rush" },
+						"2": { "name": "keyword.control.from.rush" },
+						"3": { "name": "entity.name.other.rush" }
+					}
+				},
+				{
+					"name": "entity.name.other.rush",
+					"match": "([_.[:alnum:]]+)"
+				}
+			]
+		},
+		"namespace-declaration": {
+			"name": "meta.namespace.rush",
+			"match": "(?:\\s*)(?<!_?[[:alpha:]])(?:(\\bnamespace\\b))(?![_[:alnum:]])(?:\\s*([^;\"#]*))(;|$)?",
 			"captures": {
-				"1": { "name": "keyword.control.import.rush" },
+				"1": { "name": "storage.type.namespace.rush" },
 				"2": { "name": "entity.name.other.rush" },
 				"3": { "name": "punctuation.import.optional.terminator.rush" }
 			}
 		},
 		"export-declaration": {
 			"name": "meta.export.rush",
-			"match": "^(?:\\s*)(?<![_[:alpha:]])(export)(?![_[:alnum:]])(?:\\s*)",
+			"match": "(?:\\s*)(?<![_[:alpha:]])(export)(?![_[:alnum:]])(?:\\s*)",
 			"captures": {
 				"1": { "name": "keyword.control.export.rush" }
 			}
@@ -809,7 +932,10 @@
 			"beginCaptures": {
 				"1": { "name": "storage.type.$1.rush" }
 			},
-			"patterns": [ { "include": "#pattern" }]
+			"patterns": [
+				{ "include": "#lambda-pattern" },
+				{ "include": "#pattern" }
+			]
 		},
 		"function-modifier": {
 			"match": "(?x) (?<![_[:alnum:]]) (static|extern|virtual|override|abstract|async)(\\!)? (?![_[:alnum:]])",
@@ -1048,7 +1174,7 @@
 						}
 					},
 					"patterns": [
-						{ "include": "#type-annotation-pattern" },
+						{ "include": "#return-type-annotation-pattern" },
 						{
 							"name": "meta.property.get.declaration.indexer.rush",
 							"begin": "(\\[)",
@@ -1118,7 +1244,7 @@
 						}
 					},
 					"patterns": [
-						{ "include": "#type-annotation-pattern" },
+						{ "include": "#return-type-annotation-pattern" },
 						{
 							"name": "meta.property.set.declaration.indexer.rush",
 							"begin": "(\\[)",
@@ -1169,8 +1295,8 @@
 		},
 		"type-declaration": {
 			"name": "meta.$3.declaration.rush",
-			"begin": "(?x)^(\\s*) ([_[:alpha:]][_[:alpha:]\\s]*)? (?<![_[:alnum:]])(class|struct|record)(?![_[:alnum:]]) \\s*",
-			"end": "^(?!(?:\\1\\s+|\\s*$|\\1(?<![_[:alnum:]])(?:public|private|protected|internal)(?![_[:alnum:]])))",
+			"begin": "(?x)^(\\s*) ([_[:alpha:]][_[:alpha:]\\s]*)? (?<![_[:alnum:]])(class|struct|record|implements)(?![_[:alnum:]]) \\s* (?:(?<![_[:alnum:]])(inherits|extends)(?![_[:alnum:]]) \\s*)?",
+			"end": "^(?!(?:\\1\\s+|\\s*$|\\1(?<![_[:alnum:]])(?:public|private|protected|internal|inherits|implements)(?![_[:alnum:]])))",
 			"beginCaptures": {
 				"2": {
 					"patterns": [
@@ -1178,13 +1304,14 @@
 						{ "include": "#type-modifier" }
 					]
 				},
-				"3": { "name": "storage.type.$3.rush" }
+				"3": { "name": "storage.type.$3.rush" },
+				"4": { "name": "storage.type.$4.rush" }
 			},
 			"patterns": [
 				{ "include": "#global" },
 				{
 					"name": "meta.$1.declaration.head.rush",
-					"begin": "(?<=(class|struct|record)\\s*)(@)?(\\b[_[:alpha:]][_[:alnum:]]*)",
+					"begin": "(?<=(class|struct|record|implements|inherits|extends)\\s*)(@)?(\\b[_[:alpha:]][_[:alnum:]]*)",
 					"end": "(?=.|$)",
 					"applyEndPatternLast": 1,
 					"beginCaptures": {
@@ -1210,12 +1337,12 @@
 							"patterns": [ { "include": "#type-list" } ]
 						},
 						{
-							"name": "meta.type.extensions.rush",
-							"begin": "\\s*(:)\\s*",
+							"name": "meta.type.$1.rush",
+							"begin": "\\s*(?<![_[:alnum:]])(inherits)(?![_[:alnum:]])\\s*",
 							"end": "(?=.|$)",
 							"applyEndPatternLast": 1,
 							"beginCaptures": {
-								"1": { "name": "punctuation.separator.colon.rush" }
+								"1": { "name": "storage.type.$1.rush" }
 							},
 							"patterns": [ { "include": "#type-list" } ]
 						}
@@ -1224,32 +1351,52 @@
 				{ "include": "#operator-declaration" },
 				{ "include": "#property-declaration" },
 				{ "include": "#type-access-modifier" },
+				{
+					"name": "meta.type.extensions.rush",
+					"begin": "\\s*(?<![_[:alnum:]])(inherits)(?![_[:alnum:]])\\s*",
+					"end": "(?=.|$)",
+					"applyEndPatternLast": 1,
+					"beginCaptures": {
+						"1": { "name": "storage.type.$1.rush" }
+					},
+					"patterns": [ { "include": "#type-list" } ]
+				},
 				{ "include": "#declaration" }
 			]
 		},
 		"type-access-modifier": {
 			"name": "meta.access.modifier.rush",
 			"match": "(?<![_[:alnum:]])(public|private|protected|internal)(?![_[:alnum:]])",
-			"captures": { "1": { "name": "storage.type.modifier.access.control.$1.rush" } }
+			"captures": { "1": { "name": "storage.type.modifier.access-control.$1.rush" } }
 		},
 		"interface-declaration": {
 			"name": "meta.$3.declaration.rush",
 			"begin": "(?x)^(\\s*)  ([_[:alpha:]][_[:alpha:]\\s]*)?  (?<![_[:alnum:]])(interface)(?![_[:alnum:]])\\s*([_[:alpha:]][_[:alnum:]]*)?",
-			"end": "^(?!(?:\\1\\s+|\\s*$))",
+			"end": "^(?!(?:\\1\\s+|\\s*$|\\1(?<![_[:alnum:]])(?:inherits)(?![_[:alnum:]])))",
 			"beginCaptures": {
 				"2": {
 					"patterns": [
 						{ "include": "#export-declaration" }
 					]
 				},
-				"3": { "name": "storage.type.name.rush" },
+				"3": { "name": "storage.type.interface.rush" },
 				"4": { "name": "entity.name.type.$3.rush" }
 			},
 			"patterns": [
 				{ "include": "#comment" },
 				{ "include": "#declaration" },
 				{ "include": "#operator-declaration" },
-				{ "include": "#property-declaration" }
+				{ "include": "#property-declaration" },
+				{
+					"name": "meta.type.extensions.rush",
+					"begin": "\\s*(?<![_[:alnum:]])(inherits)(?![_[:alnum:]])\\s*",
+					"end": "(?=.|$)",
+					"applyEndPatternLast": 1,
+					"beginCaptures": {
+						"1": { "name": "storage.type.$1.rush" }
+					},
+					"patterns": [ { "include": "#type-list" } ]
+				}
 			]
 		}
 	}
