@@ -1,11 +1,18 @@
 {
-    "name": "vscode-rush",
+    "name": "rush",
+    "preview": true,
     "publisher": "rush-lang",
     "displayName": "Rush",
     "description": "Rush for Visual Studio Code",
     "version": "0.0.1",
     "license": "MIT",
+    "icon": "icon.png",
+    "scripts": {
+        "package": "vsce package -o ./out/rush-0.0.1.vsix",
+        "install-dev-extension": "npm run package && code --install-extension ./out/rush-0.0.1.vsix"
+    },
     "repository": {
+        "type": "git",
         "url": "https://github.com/rush-lang/vscode-rush.git"
     },
     "bugs": {
@@ -23,6 +30,7 @@
     ],
     "keywords": [
         "rush",
+        "rush-lang",
         "programming",
         "language"
     ],
