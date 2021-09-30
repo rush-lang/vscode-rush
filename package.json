@@ -7,6 +7,7 @@
     "version": "0.0.1",
     "license": "MIT",
     "icon": "icon.png",
+    "readme": "README.md",
     "scripts": {
         "package": "vsce package -o ./rush-0.0.1.vsix",
         "install-dev-extension": "npm run package && code --install-extension ./rush-0.0.1.vsix"
@@ -35,21 +36,20 @@
         "language"
     ],
     "contributes": {
+        "breakpoints": [
+            { "language": "rush" }
+        ],
         "languages": [{
             "id": "rush",
             "aliases": ["Rush", "rush"],
             "extensions": [".rush"],
             "configuration": "./language-configuration.json"
-        }, {
-            "id": "rush.markdown",
-            "aliases": ["Markdown", "markdown"]
         }],
         "grammars": [{
             "language": "rush",
             "scopeName": "source.rush",
             "path": "./syntaxes/rush.tmLanguage.json"
         }, {
-            "language": "rush.markdown",
             "scopeName": "markdown.rush.codeblock",
             "path": "./syntaxes/markdown.tmLanguage.json",
             "injectTo": [ "text.html.markdown" ],
@@ -60,6 +60,13 @@
         "snippets": [{
             "language": "rush",
             "path": "./snippets.json"
-        }]
+        }],
+        "configurationDefaults": {
+            "[rush]": {
+                "editor.wordBasedSuggestions": false,
+                "editor.suggest.insertMode": "replace",
+                "editor.semanticHighlighting.enabled": true
+            }
+        }
     }
 }

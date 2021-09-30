@@ -30,31 +30,31 @@
     },
     "onEnterRules": [
         {
-            "beforeText": "^\\s*(public|private|protected|internal)\\s*:?\\s*$",
+            "beforeText": "^\\s*(?!##)\\s*(public|private|protected|internal)\\s*:?\\s*$",
             "action": {
                 "indent": "indent"
             }
         },
         {
-            "beforeText": "(?<![_[:alnum:]])(operator|func|get|set)(?![_[:alnum:]])(?!.*=>)",
+            "beforeText": "^[\\w\\s]*(?<!(?:abstract|extern)\\s*)(?<!\\w)(operator|func|get|set)(?!\\w)(?!.*=>)",
             "action": {
                 "indent": "indent"
             }
         },
         {
-            "beforeText": "(?<![_[:alnum:]])(class|struct|record|interface|implements)(?![_[:alnum:]])",
+            "beforeText": "^[\\w\\s]*\\s*(?<!\\w)(class|struct|record|interface|implements)(?!\\w)",
             "action": {
                 "indent": "indent"
             }
         },
         {
-            "beforeText": "^\\s*(?<![_[:alnum:]])(if|else|while|for|try|finally)(?![_[:alnum:]]).*:\\s*$",
+            "beforeText": "^\\s*(?<!\\w)(if|else|while|for|try|finally)(?!\\w).*:\\s*$",
             "action": {
                 "indent": "indent"
             }
         },
         {
-            "beforeText": "([_a-zA-Z\\)\\}\\]])\\s*=>\\s*$",
+            "beforeText": "([_a-zA-Z\\)\\}\\]])(\\s*->.*)?\\s*=>\\s*$",
             "action": {
                 "indent": "indent"
             }
