@@ -41,8 +41,8 @@
         ],
         "languages": [{
             "id": "rush",
-            "aliases": ["Rush", "rush"],
-            "extensions": [".rush"],
+            "aliases": [ "Rush", "rush" ],
+            "extensions": [ ".rush" ],
             "configuration": "./language-configuration.json"
         }],
         "grammars": [{
@@ -63,10 +63,14 @@
         }],
         "configurationDefaults": {
             "[rush]": {
+                "editor.tabSize": 3,
                 "editor.wordBasedSuggestions": false,
                 "editor.suggest.insertMode": "replace",
                 "editor.semanticHighlighting.enabled": true
             }
         }
+    },
+    "devDependencies": {
+        "vsce": "^1.100.1"
     }
 }

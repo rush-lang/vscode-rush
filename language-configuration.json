@@ -12,6 +12,7 @@
         { "open": "{", "close": "}" },
         { "open": "[", "close": "]" },
         { "open": "(", "close": ")" },
+        { "open": "`", "close": "`", "notIn": [ "string", "comment" ] },
         { "open": "'", "close": "'", "notIn": [ "string", "comment" ] },
         { "open": "\"", "close": "\"", "notIn": [ "string" ] }
 
@@ -21,10 +22,11 @@
         ["[", "]"],
         ["(", ")"],
         ["<", ">"],
+        ["`", "`"],
         ["'", "'"],
         ["\"", "\""]
     ],
-    "autoCloseBefore": "\"' \n\t",
+    "autoCloseBefore": "\"'` \n\t",
     "folding": {
         "offSide": true
     },
@@ -42,7 +44,7 @@
             }
         },
         {
-            "beforeText": "^[\\w\\s]*\\s*(?<!\\w)(class|struct|record|interface|implements)(?!\\w)",
+            "beforeText": "^[\\w\\s]*\\s*(?<!\\w)(class|struct|record|interface|implements)(?!\\w).*:\\s*$",
             "action": {
                 "indent": "indent"
             }
