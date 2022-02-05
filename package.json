@@ -1,76 +1,101 @@
 {
-    "name": "rush",
-    "preview": true,
-    "publisher": "rush-lang",
-    "displayName": "Rush",
-    "description": "Rush Programming Language Support for Visual Studio Code",
-    "version": "0.0.1",
-    "license": "MIT",
-    "icon": "icon.png",
-    "readme": "README.md",
-    "scripts": {
-        "package": "vsce package -o ./rush-0.0.1.vsix",
-        "install-dev-extension": "npm run package && code --install-extension ./rush-0.0.1.vsix"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/rush-lang/vscode-rush.git"
-    },
-    "bugs": {
-        "url": "https://github.com/rush-lang/vscode-rush/issues"
-    },
-    "engines": {
-        "vscode": "^1.56.0"
-    },
-    "categories": [
-        "Programming Languages",
-        "Debuggers",
-        "Linters",
-        "Formatters",
-        "Other"
-    ],
-    "keywords": [
-        "rush",
-        "rush-lang",
-        "programming",
-        "language"
-    ],
-    "contributes": {
-        "breakpoints": [
-            { "language": "rush" }
-        ],
-        "languages": [{
-            "id": "rush",
-            "aliases": [ "Rush", "rush" ],
-            "extensions": [ ".rush" ],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "rush",
-            "scopeName": "source.rush",
-            "path": "./syntaxes/rush.tmLanguage.json"
-        }, {
-            "scopeName": "markdown.rush.codeblock",
-            "path": "./syntaxes/markdown.tmLanguage.json",
-            "injectTo": [ "text.html.markdown" ],
-            "embeddedLanguages": {
-                "meta.embedded.block.rush": "rush"
-            }
-        }],
-        "snippets": [{
-            "language": "rush",
-            "path": "./snippets.json"
-        }],
-        "configurationDefaults": {
-            "[rush]": {
-                "editor.tabSize": 3,
-                "editor.wordBasedSuggestions": false,
-                "editor.suggest.insertMode": "replace",
-                "editor.semanticHighlighting.enabled": true
-            }
-        }
-    },
-    "devDependencies": {
-        "vsce": "^1.100.1"
-    }
+	"name": "rush",
+	"preview": true,
+	"publisher": "rush-lang",
+	"displayName": "Rush",
+	"description": "Rush Programming Language Support for Visual Studio Code",
+	"version": "0.0.1",
+	"license": "MIT",
+	"icon": "icon.png",
+	"readme": "README.md",
+	"main": "./dist/extension.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rush-lang/vscode-rush.git"
+	},
+	"bugs": {
+		"url": "https://github.com/rush-lang/vscode-rush/issues"
+	},
+	"engines": {
+		"vscode": "^1.61.0"
+	},
+	"categories": [
+		"Programming Languages",
+      "Debuggers",
+      "Linters",
+   	"Formatters",
+		"Other"
+	],
+	"keywords": [
+		"rush",
+		"rush-lang",
+		"programming",
+		"language"
+  ],
+	"activationEvents": [
+		"onLanguage:rush"
+	],
+	"contributes": {
+		"breakpoints": [
+			{ "language": "rush" }
+	   ],
+		"languages": [{
+			"id": "rush",
+			"aliases": [ "Rush", "rush" ],
+			"extensions": [ ".rush" ],
+			"configuration": "./language-configuration.json"
+	   }],
+		"grammars": [{
+			"language": "rush",
+			"scopeName": "source.rush",
+			"path": "./syntaxes/rush.tmLanguage.json"
+		}, {
+				"scopeName": "markdown.rush.codeblock",
+				"path": "./syntaxes/markdown.tmLanguage.json",
+				"injectTo": [ "text.html.markdown" ],
+				"embeddedLanguages": {
+					"meta.embedded.block.rush": "rush"
+				}
+		}],
+		"snippets": [{
+				"language": "rush",
+				"path": "./snippets.json"
+		}],
+		"configurationDefaults": {
+				"[rush]": {
+					"editor.tabSize": 3,
+					"editor.wordBasedSuggestions": false,
+					"editor.suggest.insertMode": "replace",
+					"editor.semanticHighlighting.enabled": true
+				}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run package",
+		"compile": "webpack",
+		"watch": "webpack --watch",
+		"package": "webpack --mode production --devtool hidden-source-map",
+		"compile-tests": "tsc -p . --outDir out",
+		"watch-tests": "tsc -p -w . --outDir out",
+		"pretest": "npm run compile-tests && npm run compile && npm run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js",
+      "install-dev-extension": "vsce package && code --install-extension ./rush-0.0.1.vsix --force"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.61.0",
+		"@types/glob": "^7.1.4",
+		"@types/mocha": "^9.0.0",
+		"@types/node": "14.x",
+		"@typescript-eslint/eslint-plugin": "^4.31.1",
+		"@typescript-eslint/parser": "^4.31.1",
+		"eslint": "^7.32.0",
+		"glob": "^7.1.7",
+		"mocha": "^9.1.1",
+		"typescript": "^4.4.3",
+		"ts-loader": "^9.2.5",
+		"webpack": "^5.52.1",
+		"webpack-cli": "^4.8.0",
+		"@vscode/test-electron": "^1.6.2"
+	}
 }
