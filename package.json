@@ -4,7 +4,7 @@
 	"publisher": "rush-lang",
 	"displayName": "Rush",
 	"description": "Rush Programming Language Support for Visual Studio Code",
-	"version": "0.0.1",
+	"version": "0.0.3",
 	"license": "MIT",
 	"icon": "icon.png",
 	"readme": "README.md",
@@ -80,7 +80,7 @@
 		"pretest": "npm run compile-tests && npm run compile && npm run lint",
 		"lint": "eslint src --ext ts",
 		"test": "node ./out/test/runTest.js",
-      "install-dev-extension": "vsce package && code --install-extension ./rush-0.0.1.vsix --force"
+      "install-dev-extension": "vsce package && code --install-extension ./rush-0.0.3.vsix --force"
 	},
 	"devDependencies": {
 		"@types/vscode": "^1.61.0",
