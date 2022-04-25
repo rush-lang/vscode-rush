@@ -51,7 +51,7 @@
 		"body": [
 			"struct ${1:name}",
 			"public",
-			"\tfunc new (${2:${3:params}: ${4:type}})",
+			"\tconstruct (${2:${3:params}: ${4:type}})",
 			"\t\t$0"
 		]
 	},
@@ -62,7 +62,7 @@
 		"body": [
 			"class ${1:name}",
 			"public",
-			"\tfunc new (${2:${3:params}: ${4:type}})",
+			"\tconstruct (${2:${3:params}: ${4:type}})",
 			"\t\t$0"
 		]
 	},

@@ -38,7 +38,7 @@
 				},
 				{
 					"name": "storage.modifier.$1.rush",
-					"match": "(?<![_[:alnum:]])(const|intern|extern|public|private|protected|virtual|override|static)(?![_[:alnum:]])"
+					"match": "(?<![_[:alnum:]])(const|extern|public|private|protected|virtual|override|static)(?![_[:alnum:]])"
 				},
 				{
 					"name": "constant.language.$1.rush",
@@ -1205,7 +1205,7 @@
 		},
 		"storage-modifier": {
 			"name": "storage.modifier.specifier.$1.rush",
-			"match": "(?x) (?<![_[:alnum:]]) (static|intern|extern) (?![_[:alnum:]])"
+			"match": "(?x) (?<![_[:alnum:]]) (static|extern) (?![_[:alnum:]])"
 		},
 		"access-modifier": {
 			"name": "meta.access.modifier.rush",
@@ -1213,7 +1213,7 @@
 			"captures": { "1": { "name": "storage.type.modifier.access-control.$1.rush" } }
 		},
 		"function-modifier": {
-			"match": "(?<![_[:alnum:]])(static|intern|extern|virtual|override|abstract|async)((?<=override\\s*)\\!)?(?![_[:alnum:]])",
+			"match": "(?<![_[:alnum:]])(static|extern|virtual|override|abstract|async)((?<=override\\s*)\\!)?(?![_[:alnum:]])",
 			"captures": {
 				"1": { "name": "storage.modifier.specifier.$1.rush" },
 				"2": { "name": "punctuation.operator.exclamation.rush" }
@@ -1368,6 +1368,64 @@
 				}
 			]
 		},
+		"constructor-declaration": {
+			"name": "meta.declaration.constructor.rush",
+			"begin": "(?x)^(\\s*) (?<![_[:alnum:]]) (default|construct|destruct) (?![_[:alnum:]]) \\s*",
+			"end": "^(?!(?:\\1\\s+|\\s*[$#]))",
+			"beginCaptures": {
+				"2": { "name": "storage.type.constructor.rush" }
+			},
+			"patterns": [
+				{ "include": "#comment" },
+				{ "include": "#preprocessor" },
+				{
+					"name": "meta.declaration.constructor.head.rush",
+					"begin": "(?<=(?:default|construct|destruct)\\s*)",
+					"end": "(?=.|$)",
+					"applyEndPatternLast": 1,
+					"patterns": [
+						{ "include": "#global" },
+						{
+							"name": "meta.declaration.constructor.parameters.rush",
+							"begin": "\\s*(\\()",
+							"end": "(\\))",
+							"beginCaptures": { "1": { "name": "punctuation.section.parameters.start.bracket.round.rush" } },
+							"endCaptures": { "1": { "name": "punctuation.section.parameters.end.bracket.round.rush" } },
+							"patterns": [
+								{ "include": "#global" },
+								{ "include": "#pattern" }
+							]
+						},
+						{
+							"name": "meta.declaration.constructor.expression-body.rush",
+							"begin": "\\s*(=>)\\s*",
+							"end": "(?=.|$)",
+							"applyEndPatternLast": 1,
+							"beginCaptures": { "1": { "name": "punctuation.separator.arrow.thick.rush" } },
+							"patterns": [
+								{
+									"begin": "(?x) (?<=(?:=>)\\s*)",
+									"end": "(?=.|$)",
+									"applyEndPatternLast": 1,
+									"patterns": [
+										{ "include": "#expression" }
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "meta.declaration.constructor.body.rush",
+					"begin": "^(?=(\\s*))",
+					"end": "^(?!(?:\\1|\\s*$))",
+					"patterns": [
+						{ "include": "#statement" },
+						{ "include": "#requires-clause" }
+					]
+				}
+			]
+		},
 		"function-declaration": {
 			"name": "meta.declaration.function.rush",
 			"begin": "(?x)^(\\s*) ([_[:alpha:]][_[:alnum:]\\s\\!]*)? (?<![_[:alnum:]]) (func) (?![_[:alnum:]]) \\s*",
@@ -1421,24 +1479,6 @@
 							"patterns": [
 								{ "include": "#global" },
 								{ "include": "#pattern" }
-							]
-						},
-						{
-							"name": "meta.constructor.declaration.intializer.rush",
-							"begin": "\\s*(:)\\s*",
-							"end": "(?=.|$)",
-							"applyEndPatternLast": 1,
-							"beginCaptures": { "1": { "name": "punctuation.separator.colon.rush" } },
-							"patterns": [
-								{
-									"begin": "(?x) (?<=(?::)\\s*)",
-									"end": "(?=.|$)",
-									"applyEndPatternLast": 1,
-									"patterns": [
-										{ "include": "#invoke-expression" },
-										{ "include": "#identifier" }
-									]
-								}
 							]
 						},
 						{ "include": "#requires-clause" },
@@ -1633,7 +1673,7 @@
 		},
 		"type-modifier": {
 			"name": "storage.modifier.specifier.$1.rush",
-			"match": "(?x) (?<![_[:alnum:]]) (static|intern|base) (?![_[:alnum:]])"
+			"match": "(?x) (?<![_[:alnum:]]) (static|base) (?![_[:alnum:]])"
 		},
 		"type-declaration": {
 			"name": "meta.declaration.$3.rush",
@@ -1705,6 +1745,7 @@
 					},
 					"patterns": [ { "include": "#type-list" } ]
 				},
+				{ "include": "#constructor-declaration" },
 				{ "include": "#declaration" }
 			]
 		},

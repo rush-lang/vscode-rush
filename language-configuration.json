@@ -38,7 +38,7 @@
             }
         },
         {
-            "beforeText": "^[\\w\\s]*(?<!(?:abstract|extern)\\s*)(?<!\\w)(operator|func|get|set)(?!\\w)(?!.*=>)",
+            "beforeText": "^[\\w\\s]*(?<!(?:abstract|extern)\\s*)(?<!\\w)(operator|func|construct|destruct|get|set)(?!\\w)(?!.*=>)",
             "action": {
                 "indent": "indent"
             }
