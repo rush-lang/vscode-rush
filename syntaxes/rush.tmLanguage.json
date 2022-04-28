@@ -1559,7 +1559,7 @@
 						}
 					},
 					"patterns": [
-						{ "include": "#type-annotation-pattern" },
+						{ "include": "#return-type-annotation-pattern" },
 						{
 							"name": "meta.property.get.declaration.indexer.rush",
 							"begin": "(\\[)",
@@ -1630,7 +1630,7 @@
 						}
 					},
 					"patterns": [
-						{ "include": "#type-annotation-pattern" },
+						{ "include": "#return-type-annotation-pattern" },
 						{
 							"name": "meta.property.set.declaration.indexer.rush",
 							"begin": "(\\[)",
