@@ -40,7 +40,6 @@
       "master"
     ],
     "plugins": [
-      "@semantic-release/release-notes-generator",
       [
         "@semantic-release/commit-analyzer",
         {
@@ -48,9 +47,21 @@
         }
       ],
       [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "conventionalcommits"
+        }
+      ],
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
+      [
         "semantic-release-vsce",
         {
-          "packageVsix": false
+          "packageVsix": true
         }
       ],
       [
@@ -131,6 +142,7 @@
     "install-dev-extension": "vsce package -o ./dist/rush-dev.vsix --pre-release && code --install-extension ./dist/rush-dev.vsix --force"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/commit-analyzer": "^9.0.2",
     "@semantic-release/github": "^8.0.4",
     "@semantic-release/release-notes-generator": "^10.0.3",
