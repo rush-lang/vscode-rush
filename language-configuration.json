@@ -1,65 +1,70 @@
 {
-    "comments": {
-        "lineComment": "##",
-        "blockComment": [ "###", "###" ],
-    },
-    "brackets": [
-        ["{", "}"],
-        ["[", "]"],
-        ["(", ")"]
-    ],
-    "autoClosingPairs": [
-        { "open": "{", "close": "}" },
-        { "open": "[", "close": "]" },
-        { "open": "(", "close": ")" },
-        { "open": "`", "close": "`", "notIn": [ "string", "comment" ] },
-        { "open": "'", "close": "'", "notIn": [ "string", "comment" ] },
-        { "open": "\"", "close": "\"", "notIn": [ "string" ] }
-
-    ],
-    "surroundingPairs": [
-        ["{", "}"],
-        ["[", "]"],
-        ["(", ")"],
-        ["<", ">"],
-        ["`", "`"],
-        ["'", "'"],
-        ["\"", "\""]
-    ],
-    "autoCloseBefore": "\"'` \n\t",
-    "folding": {
-        "offSide": true
-    },
-    "onEnterRules": [
-        {
-            "beforeText": "^\\s*(?!##)\\s*(public|private|protected|internal)\\s*:?\\s*$",
-            "action": {
-                "indent": "indent"
-            }
-        },
-        {
-            "beforeText": "^[\\w\\s]*(?<!(?:abstract|extern)\\s*)(?<!\\w)(operator|func|construct|destruct|get|set)(?!\\w)(?!.*=>)",
-            "action": {
-                "indent": "indent"
-            }
-        },
-        {
-            "beforeText": "^[\\w\\s]*\\s*(?<!\\w)(class|struct|record|interface|implements)(?!\\w).*:\\s*$",
-            "action": {
-                "indent": "indent"
-            }
-        },
-        {
-            "beforeText": "^\\s*(?<!\\w)(if|else|while|for|try|finally)(?!\\w).*:\\s*$",
-            "action": {
-                "indent": "indent"
-            }
-        },
-        {
-            "beforeText": "([_a-zA-Z\\)\\}\\]])(\\s*->.*)?\\s*=>\\s*$",
-            "action": {
-                "indent": "indent"
-            }
-        }
-    ]
+   "folding": {
+      "offSide": false
+   },
+   "comments": {
+      "lineComment": "##",
+      "blockComment": [ "###", "###" ],
+   },
+   "brackets": [
+      ["(", ")"],
+      ["[", "]"],
+      ["{", "}"],
+      ["${", "}"],
+   ],
+   "autoCloseBefore": "\"'` \n\t",
+   "autoClosingPairs": [
+      { "open": "{", "close": "}" },
+      { "open": "[", "close": "]" },
+      { "open": "(", "close": ")" },
+      { "open": "'", "close": "'", "notIn": [ "string", "comment" ] },
+      { "open": "\"", "close": "\"", "notIn": [ "string" ] },
+      { "open": "\"\"\"", "close": "\"\"\"", "notIn": [ "comment" ] },
+   ],
+   "surroundingPairs": [
+      ["{", "}"],
+      ["[", "]"],
+      ["(", ")"],
+      ["<", ">"],
+      ["'", "'"],
+      ["\"", "\""]
+   ],
+   "colorizedBracketPairs": [
+      [ "(", ")" ],
+      [ "[", "]" ],
+      [ "{", "}" ],
+      [ "${", "}" ]
+   ],
+   "onEnterRules": [
+      {
+         "beforeText": "^\\s*(public|private|protected|internal)\\s*$",
+         "action": {
+               "indent": "indent"
+         }
+      },
+      {
+         "beforeText": "^[\\w\\s]*(?<!(?:abstract|extern)\\s*)\\b(operator|func|construct|destruct|get|set)\\b(?!.*=>)(?!.*[\\(\\[\\{]\\s*$)",
+         "action": {
+               "indent": "indent"
+         }
+      },
+      {
+         "beforeText": "^[\\w\\s]*(?<!(?:extern)\\s*)\\b(enum|class|struct|trait|extends|implements)\\b(?!.*[\\(\\[\\{]\\s*$)",
+         "action": {
+               "indent": "indent"
+         }
+      },
+      {
+         "beforeText": "^\\s*\\b(if|else|while|do|for|try|catch|finally|with)\\b.*:(?!\\s*(?:[\\(\\[\\{]))\\s*$",
+         "action": {
+               "indent": "indent"
+         }
+      },
+      {
+         "beforeText": "([_a-zA-Z\\)\\}\\]])(\\s*->.*)?\\s*=>(?!\\s*(?:[\\(\\[\\{]))\\s*$",
+         "action": {
+               "indent": "indent"
+         }
+      }
+   ]
 }

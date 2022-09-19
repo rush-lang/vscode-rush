@@ -17,7 +17,7 @@
     "url": "https://github.com/rush-lang/vscode-rush/issues"
   },
   "engines": {
-    "vscode": "^1.61.0"
+    "vscode": "^1.63.0"
   },
   "categories": [
     "Programming Languages",
@@ -100,7 +100,16 @@
       {
         "language": "rush",
         "scopeName": "source.rush",
-        "path": "./syntaxes/rush.tmLanguage.json"
+        "path": "./syntaxes/rush.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.embedded.block.yaml": "yaml",
+          "meta.embedded.block.json": "json",
+          "meta.embedded.block.html": "html",
+          "meta.embedded.block.scss": "scss",
+          "meta.embedded.block.xml": "xml",
+          "meta.embedded.block.css": "css",
+          "meta.embedded.block.sql": "sql"
+        }
       },
       {
         "scopeName": "markdown.rush.codeblock",
