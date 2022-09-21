@@ -1,12 +1,11 @@
 {
   "name": "rush",
-  "preview": true,
   "publisher": "rush-lang",
   "displayName": "Rush",
   "description": "Rush Programming Language Support for Visual Studio Code",
   "version": "0.0.0-semantic-release",
   "license": "MIT",
-  "icon": "icon.png",
+  "icon": "icons/extension-icon.png",
   "readme": "README.md",
   "main": "./dist/extension.js",
   "repository": {
@@ -67,6 +66,7 @@
       [
         "@semantic-release/github",
         {
+          "successComment": "This issue has been resolved in ${nextRelease.version}.",
           "assets": [
             {
               "path": "*.vsix",
@@ -93,6 +93,10 @@
         "extensions": [
           ".rush"
         ],
+        "icon": {
+          "dark": "./icons/file-icon.svg",
+          "light": "./icons/file-icon.svg"
+        },
         "configuration": "./language-configuration.json"
       }
     ],
@@ -167,7 +171,7 @@
     "glob": "^7.1.7",
     "mocha": "^9.1.1",
     "semantic-release": "^19.0.2",
-    "semantic-release-vsce": "^5.0.11",
+    "semantic-release-vsce": "^5.2.0",
     "ts-loader": "^9.2.5",
     "typescript": "^4.4.3",
     "webpack": "^5.52.1",

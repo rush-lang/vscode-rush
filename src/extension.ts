@@ -12,7 +12,7 @@ export function activate(context: vscode.ExtensionContext) {
 				...data.keywords.map(kw => new vscode.CompletionItem(kw, vscode.CompletionItemKind.Keyword)),
 				...data.structs.map(kw => new vscode.CompletionItem(kw, vscode.CompletionItemKind.Struct)),
 				...data.classes.map(kw => new vscode.CompletionItem(kw, vscode.CompletionItemKind.Class)),
-			]
+			];
 		},
 	});
 }

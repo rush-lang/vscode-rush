@@ -38,7 +38,7 @@
 				},
 				{
 					"name": "storage.modifier.$1.rush",
-					"match": "(?<![_[:alnum:]])(const|extern|public|private|protected|virtual|override|static)(?![_[:alnum:]])"
+					"match": "(?<![_[:alnum:]])(const|extern|public|private|protected|virtual|override|sealed|static)(?![_[:alnum:]])"
 				},
 				{
 					"name": "constant.language.$1.rush",
@@ -1202,8 +1202,8 @@
 		},
 		"as-expression": {
 			"name": "meta.expression.$1.rush",
-			"begin": "\\s*(?<![_[:alnum:]])(as)(\\?)?(?![_[:alnum:]])\\s*",
-			"end": "(?<!\\b(?:as)(?:\\b|\\?)\\s*)",
+			"begin": "\\s*(?<![_[:alnum:]])(as)(\\?|!)?(?![_[:alnum:]])\\s*",
+			"end": "(?<!\\b(?:as)(?:\\b|\\?|!)\\s*)",
 			"beginCaptures": {
 				"1": { "name": "keyword.other.$1.rush" },
 				"2": { "name": "punctuation.operator.question_mark.rush" }
@@ -1528,7 +1528,7 @@
 				{ "include": "#namespace" },
 				{ "include": "#annotation" },
 				{ "include": "#extension-declaration" },
-				{ "include": "#trait-declaration" },
+				{ "include": "#subtype-declaration" },
 				{ "include": "#type-declaration" },
 				{ "include": "#function-declaration" },
 				{ "include": "#storage-declaration" },
@@ -1602,7 +1602,7 @@
 			"captures": { "1": { "name": "storage.type.modifier.access-control.$1.rush" } }
 		},
 		"function-modifier": {
-			"match": "(?<![_[:alnum:]])(static|const|extern|virtual|override|abstract)(?![_[:alnum:]])",
+			"match": "(?<![_[:alnum:]])(static|const|extern|abstract|virtual|override|sealed)(?![_[:alnum:]])",
 			"captures": {
 				"1": { "name": "storage.modifier.specifier.$1.rush" },
 				"2": { "name": "punctuation.operator.exclamation.rush" }
@@ -2093,7 +2093,7 @@
 						{ "include": "#access-modifier" },
 						{
 							"name": "storage.modifier.specifier.$1.rush",
-							"match": "(?x) (?<![_[:alnum:]]) (static|const|base|data) (?![_[:alnum:]])"
+							"match": "(?x) (?<![_[:alnum:]]) (static|const|sealed|base|data) (?![_[:alnum:]])"
 						}
 					]
 				},
@@ -2161,7 +2161,7 @@
 				{ "include": "#declaration" }
 			]
 		},
-		"trait-declaration": {
+		"subtype-declaration": {
 			"name": "meta.declaration.$3.rush",
 			"begin": "(?x)^(\\s*) ([_[:alpha:]][_[:alpha:]\\s]*)? (?<![_[:alnum:]])(trait)(?![_[:alnum:]]) \\s*",
 			"end": "^(?!(?:\\1\\s+|\\s*[$#]|\\1(?<![_[:alnum:]])(?:extends)(?![_[:alnum:]])))",
@@ -2172,7 +2172,7 @@
 						{ "include": "#access-modifier" },
 						{
 							"name": "storage.modifier.specifier.$1.rush",
-							"match": "(?x) (?<![_[:alnum:]]) (static|struct|class) (?![_[:alnum:]])"
+							"match": "(?x) (?<![_[:alnum:]]) (static|struct|class|sealed) (?![_[:alnum:]])"
 						}
 					]
 				},
