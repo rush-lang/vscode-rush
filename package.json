@@ -1,6 +1,5 @@
 {
   "name": "rush",
-  "preview": true,
   "publisher": "rush-lang",
   "displayName": "Rush",
   "description": "Rush Programming Language Support for Visual Studio Code",
