@@ -1,6 +1,6 @@
 # Visual Studio Code Extension for Rush
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/rush-lang/vscode-rush/tree/master.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/rush-lang/vscode-rush/tree/master)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/rush-lang/vscode-rush/tree/master.png?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/rush-lang/vscode-rush/tree/master)
 [![semantic-release: conventionalcommits](https://img.shields.io/badge/semantic--release-conventionalcommits-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
 

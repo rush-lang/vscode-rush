@@ -1526,7 +1526,6 @@
 			"patterns": [
 				{ "include": "#import" },
 				{ "include": "#namespace" },
-				{ "include": "#annotation" },
 				{ "include": "#extension-declaration" },
 				{ "include": "#subtype-declaration" },
 				{ "include": "#type-declaration" },
@@ -1535,7 +1534,8 @@
 				{ "include": "#export-declaration" },
 				{ "include": "#function-modifier" },
 				{ "include": "#storage-modifier" },
-				{ "include": "#access-modifier" }
+				{ "include": "#access-modifier" },
+				{ "include": "#annotation" }
 			]
 		},
 		"annotation": {
@@ -1630,13 +1630,14 @@
 		},
 		"subscript-operator-declaration": {
 			"name": "meta.declaration.operator.rush",
-			"begin": "(?x)^(\\s*)  ([_[:alpha:]][_[:alpha:]\\s]*)?  (?<![_[:alnum:]])(operator)(?![_[:alnum:]]) \\s* (?<![_[:alnum:]])(this)(?![_[:alnum:]]) \\s* (?=\\[)",
+			"begin": "(?x)^(\\s*) ((?:@?[_[:alpha:]][_[:alnum:]]*|\\s)*)? (?<![_[:alnum:]])(operator)(?![_[:alnum:]]) \\s* (?<![_[:alnum:]])(this)(?![_[:alnum:]]) \\s* (?=\\[)",
 			"end": "^(?!(?:\\1\\s+|\\s*[$#]))",
 			"beginCaptures": {
 				"2": { "patterns": [
 					{ "include": "#contextual-function-modifier" },
 					{ "include": "#function-modifier" },
-					{ "include": "#access-modifier" }
+					{ "include": "#access-modifier" },
+					{ "include": "#annotation" }
 				] },
 				"3": { "name": "storage.type.operator.rush" },
 				"4": { "name": "constant.language.$5.rush" }
@@ -1676,7 +1677,7 @@
 		},
 		"operator-declaration": {
 			"name": "meta.declaration.operator.rush",
-			"begin": "(?x)^(\\s*)  ([_[:alpha:]][_[:alpha:]\\s]*)?  (?<![_[:alnum:]])(operator)(?![_[:alnum:]]) \\s*",
+			"begin": "(?x)^(\\s*)  ((?:@?[_[:alpha:]][_[:alnum:]]*|\\s)*)?  (?<![_[:alnum:]])(operator)(?![_[:alnum:]]) \\s*",
 			"end": "^(?!(?:\\1\\s+|\\s*[$#]))",
 			"beginCaptures": {
 				"2": { "patterns": [
@@ -1686,7 +1687,8 @@
 					},
 					{ "include": "#contextual-function-modifier" },
 					{ "include": "#function-modifier" },
-					{ "include": "#access-modifier" }
+					{ "include": "#access-modifier" },
+					{ "include": "#annotation" }
 				] },
 				"3": { "name": "storage.type.operator.rush" }
 			},
@@ -1773,13 +1775,14 @@
 		},
 		"constructor-declaration": {
 			"name": "meta.declaration.constructor.rush",
-			"begin": "(?x)^(\\s*)  ([_[:alpha:]][_[:alpha:]\\s]*)? (?<![_[:alnum:]]) (default|construct|destruct) (?![_[:alnum:]]) \\s*",
+			"begin": "(?x)^(\\s*) ((?:@?[_[:alpha:]][_[:alnum:]]*|\\s)*)? (?<![_[:alnum:]]) (default|construct|destruct) (?![_[:alnum:]]) \\s*",
 			"end": "^(?!(?:\\1\\s+|\\s*[$#]))",
 			"beginCaptures": {
 				"2": { "patterns": [
 					{ "include": "#contextual-function-modifier" },
 					{ "include": "#function-modifier" },
-					{ "include": "#access-modifier" }
+					{ "include": "#access-modifier" },
+					{ "include": "#annotation" }
 				] },
 				"3": { "name": "storage.type.constructor.rush" }
 			},
@@ -1835,7 +1838,7 @@
 		},
 		"function-declaration": {
 			"name": "meta.declaration.function.rush",
-			"begin": "(?x)^(\\s*) ([_[:alpha:]][_[:alnum:]\\s\\!]*)? (?<![_[:alnum:]]) (func) (?![_[:alnum:]]) \\s*",
+			"begin": "(?x)^(\\s*) ((?:@?[_[:alpha:]][_[:alnum:]]*|\\s)*)? (?<![_[:alnum:]]) (func) (?![_[:alnum:]]) \\s*",
 			"end": "^(?!(?:\\1\\s+|\\s*[$#]))",
 			"beginCaptures": {
 				"2": {
@@ -1843,7 +1846,8 @@
 						{ "include": "#export-declaration" },
 						{ "include": "#contextual-function-modifier" },
 						{ "include": "#function-modifier" },
-						{ "include": "#access-modifier" }
+						{ "include": "#access-modifier" },
+						{ "include": "#annotation" }
 					]
 				},
 				"3": { "name": "storage.type.function.rush" }
@@ -1938,13 +1942,14 @@
 		},
 		"get-property-declaration": {
 			"name": "meta.property.get.declaration.rush",
-			"begin": "(?x)^(\\s*) ([_[:alpha:]][_[:alpha:]\\s\\!]*)? (?<![_[:alnum:]]) (get) (?![_[:alnum:]]) \\s*",
+			"begin": "(?x)^(\\s*) ((?:@?[_[:alpha:]][_[:alnum:]]*|\\s)*)? (?<![_[:alnum:]]) (get) (?![_[:alnum:]]) \\s*",
 			"end": "^(?!(?:\\1\\s+|\\s*[$#]))",
 			"beginCaptures": {
 				"2": { "patterns": [
 					{ "include": "#contextual-function-modifier" },
 					{ "include": "#function-modifier" },
-					{ "include": "#access-modifier" }
+					{ "include": "#access-modifier" },
+					{ "include": "#annotation" }
 				] },
 				"3": { "name": "storage.type.property.get.rush" }
 			},
@@ -2011,13 +2016,14 @@
 		},
 		"set-property-declaration": {
 			"name": "meta.property.set.declaration.rush",
-			"begin": "(?x)^(\\s*) ([_[:alpha:]][_[:alpha:]\\s\\!]*)? (?<![_[:alnum:]]) (set) (?![_[:alnum:]]) \\s*",
+			"begin": "(?x)^(\\s*) ((?:@?[_[:alpha:]][_[:alnum:]]*|\\s)*)? (?<![_[:alnum:]]) (set) (?![_[:alnum:]]) \\s*",
 			"end": "^(?!(?:\\1\\s+|\\s*[$#]))",
 			"beginCaptures": {
 				"2": { "patterns": [
 					{ "include": "#contextual-function-modifier" },
 					{ "include": "#function-modifier" },
-					{ "include": "#access-modifier" }
+					{ "include": "#access-modifier" },
+					{ "include": "#annotation" }
 				] },
 				"3": { "name": "storage.type.property.set.rush" }
 			},
@@ -2084,7 +2090,7 @@
 		},
 		"type-declaration": {
 			"name": "meta.declaration.$3.rush",
-			"begin": "(?x)^(\\s*) ([_[:alpha:]][_[:alpha:]\\s]*)? (?<![_[:alnum:]])(class|struct|implements)(?![_[:alnum:]]) \\s* (?:(?<![_[:alnum:]])(extends)(?![_[:alnum:]]) \\s*)?",
+			"begin": "(?x)^(\\s*) ((?:@?[_[:alpha:]][_[:alnum:]]*|\\s)*)? (?<![_[:alnum:]])(class|struct|implements)(?![_[:alnum:]]) \\s* (?:(?<![_[:alnum:]])(extends)(?![_[:alnum:]]) \\s*)?",
 			"end": "^(?!(?:\\1\\s+|\\s*[$#]|\\1(?<![_[:alnum:]])(?:public|private|protected|internal|extends)(?![_[:alnum:]])))",
 			"beginCaptures": {
 				"2": {
@@ -2094,7 +2100,8 @@
 						{
 							"name": "storage.modifier.specifier.$1.rush",
 							"match": "(?x) (?<![_[:alnum:]]) (static|const|sealed|base|data) (?![_[:alnum:]])"
-						}
+						},
+						{ "include": "#annotation" }
 					]
 				},
 				"3": { "name": "storage.type.$3.rush" },
@@ -2163,7 +2170,7 @@
 		},
 		"subtype-declaration": {
 			"name": "meta.declaration.$3.rush",
-			"begin": "(?x)^(\\s*) ([_[:alpha:]][_[:alpha:]\\s]*)? (?<![_[:alnum:]])(trait)(?![_[:alnum:]]) \\s*",
+			"begin": "(?x)^(\\s*) ((?:@?[_[:alpha:]][_[:alnum:]]*|\\s)*)? (?<![_[:alnum:]])(trait)(?![_[:alnum:]]) \\s*",
 			"end": "^(?!(?:\\1\\s+|\\s*[$#]|\\1(?<![_[:alnum:]])(?:extends)(?![_[:alnum:]])))",
 			"beginCaptures": {
 				"2": {
@@ -2173,7 +2180,8 @@
 						{
 							"name": "storage.modifier.specifier.$1.rush",
 							"match": "(?x) (?<![_[:alnum:]]) (static|struct|class|sealed) (?![_[:alnum:]])"
-						}
+						},
+						{ "include": "#annotation" }
 					]
 				},
 				"3": { "name": "storage.type.$3.rush" }
