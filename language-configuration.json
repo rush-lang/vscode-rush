@@ -10,7 +10,6 @@
       ["(", ")"],
       ["[", "]"],
       ["{", "}"],
-      ["${", "}"],
    ],
    "autoCloseBefore": "\"'` \n\t",
    "autoClosingPairs": [
@@ -34,37 +33,49 @@
       [ "(", ")" ],
       [ "[", "]" ],
       [ "{", "}" ],
-      [ "${", "}" ]
    ],
    "onEnterRules": [
       {
+         "beforeText": "^\\s*\\b(return|throw|break|continue|noop)\\b",
+         "action": {
+            "indent": "outdent"
+         }
+      },
+      {
          "beforeText": "^\\s*(public|private|protected|internal)\\s*$",
          "action": {
-               "indent": "indent"
+            "indent": "indent"
+         }
+      },
+      {
+         "beforeText": "^(?!.*[\\(\\[\\{]\\s*$)",
+         "afterText": "^\\s*\\b(end)\\b.*$",
+         "action": {
+            "indent": "indentOutdent"
          }
       },
       {
          "beforeText": "^[\\w\\s]*(?<!(?:abstract|extern)\\s*)\\b(operator|func|construct|destruct|get|set)\\b(?!.*=>)(?!.*[\\(\\[\\{]\\s*$)",
          "action": {
-               "indent": "indent"
+            "indent": "indent"
          }
       },
       {
-         "beforeText": "^[\\w\\s]*(?<!(?:extern)\\s*)\\b(enum|class|struct|trait|extends|implements)\\b(?!.*[\\(\\[\\{]\\s*$)",
+         "beforeText": "^[\\w\\s]*(?<!(?:extern)\\s*)\\b(enum|class|struct|trait|extends|impl)\\b(?!.*[\\(\\[\\{]\\s*$)",
          "action": {
-               "indent": "indent"
+            "indent": "indent"
          }
       },
       {
-         "beforeText": "^\\s*\\b(if|else|while|do|for|try|catch|finally|with)\\b.*:(?!\\s*(?:[\\(\\[\\{]))\\s*$",
+         "beforeText": "^\\s*\\b(on|if|else|while|do|for|try|catch|finally|with)\\b(?!.*[\\(\\[\\{]\\s*$)",
          "action": {
-               "indent": "indent"
+            "indent": "indent"
          }
       },
       {
          "beforeText": "([_a-zA-Z\\)\\}\\]])(\\s*->.*)?\\s*=>(?!\\s*(?:[\\(\\[\\{]))\\s*$",
          "action": {
-               "indent": "indent"
+            "indent": "indent"
          }
       }
    ]
